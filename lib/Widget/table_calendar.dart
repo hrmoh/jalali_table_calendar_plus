@@ -67,7 +67,7 @@ class JalaliTableCalendarState extends State<JalaliTableCalendar> {
 
   int _calculateInitialPage(Jalali date) {
     int currentMonth = date.month;
-    return 99 * 12 + currentMonth - 1;
+    return (date.year - 1304) * 12 + currentMonth - 1;
   }
 
   @override

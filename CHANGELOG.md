@@ -13,3 +13,8 @@
 ## 1.1.1
 
 * add option to select initial date for calendar
+
+## 1.1.2
+
+* fix initialization calendar
+* update shamsi_date and flutter_lints packages
