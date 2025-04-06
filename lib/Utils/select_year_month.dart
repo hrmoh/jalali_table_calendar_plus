@@ -43,11 +43,12 @@ class _SelectYearMonthState extends State<_SelectYearMonth> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Directionality(
       textDirection: widget.direction,
       child: Dialog(
         child: SizedBox(
-          height: 250,
+          height: height / 3.5,
           child: PageView.builder(
             itemCount: mode == _SelectMode.year ? 17 : 1,
             // 200 years * 12 months
@@ -59,34 +60,60 @@ class _SelectYearMonthState extends State<_SelectYearMonth> {
             },
             itemBuilder: (context, index) {
               return Center(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 5,
-                      mainAxisExtent: 50),
-                  itemCount: 12,
-                  itemBuilder: (context, index) {
-                    if (_SelectMode.year == mode) {
-                      int year = 1304 + (page * 12);
-                      return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedYear = year + index;
-                              mode = _SelectMode.month;
-                            });
-                          },
-                          child:
-                              Center(child: Text((year + index).toString())));
-                    } else {
-                      return GestureDetector(
-                          onTap: () {
-                            Navigator.pop(
-                                context, (selectedYear - 1304) * 12 + index);
-                          },
-                          child: Center(child: Text(monthNames[index])));
-                    }
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (_SelectMode.year == mode)
+                    IconButton(
+                      icon: const Icon(Icons.chevron_left),
+                      onPressed: () {
+                        _pageController.previousPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease);
+                      },
+                    ),
+                    Flexible(
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 5,
+                                mainAxisExtent: 50),
+                        itemCount: 12,
+                        itemBuilder: (context, index) {
+                          if (_SelectMode.year == mode) {
+                            int year = 1304 + (page * 12);
+                            return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedYear = year + index;
+                                    mode = _SelectMode.month;
+                                  });
+                                },
+                                child: Center(
+                                    child: Text((year + index).toString())));
+                          } else {
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context,
+                                      (selectedYear - 1304) * 12 + index);
+                                },
+                                child: Center(child: Text(monthNames[index])));
+                          }
+                        },
+                      ),
+                    ),
+                    if (_SelectMode.year == mode)
+                    IconButton(
+                      icon: const Icon(Icons.chevron_right),
+                      onPressed: () {
+                        _pageController.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.ease);
+                      },
+                    ),
+                  ],
                 ),
               );
             },

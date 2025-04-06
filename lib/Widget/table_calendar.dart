@@ -83,7 +83,8 @@ class JalaliTableCalendarState extends State<JalaliTableCalendar> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _buildHeader(),
+          if (widget.option == null || widget.option!.showHeader)
+            _buildHeader(),
           _buildDaysOfWeek(),
           _buildCalendarPageView()
         ],
@@ -106,19 +107,23 @@ class JalaliTableCalendarState extends State<JalaliTableCalendar> {
       'بهمن',
       'اسفند',
     ];
+    bool showHeaderArrows = widget.option?.showHeaderArrows ?? true;
     return Container(
       padding: widget.option?.headerPadding ?? const EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: showHeaderArrows
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () {
-              _pageController.previousPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease);
-            },
-          ),
+          if (showHeaderArrows)
+            IconButton(
+              icon: const Icon(Icons.chevron_left),
+              onPressed: () {
+                _pageController.previousPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
+              },
+            ),
           GestureDetector(
             onTap: () async {
               int? newPage = await showDialog(
@@ -139,14 +144,15 @@ class JalaliTableCalendarState extends State<JalaliTableCalendar> {
                   widget.option?.headerStyle ?? const TextStyle(fontSize: 20.0),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.chevron_right),
-            onPressed: () {
-              _pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease);
-            },
-          ),
+          if (showHeaderArrows)
+            IconButton(
+              icon: const Icon(Icons.chevron_right),
+              onPressed: () {
+                _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease);
+              },
+            ),
         ],
       ),
     );

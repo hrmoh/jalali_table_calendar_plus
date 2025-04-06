@@ -16,7 +16,7 @@ A rewritten package of [jalali_table_calendar](https://pub.dev/packages/jalali_t
 ### Add this line to the pubspec.yaml file
 
 ```yaml
-jalali_table_calendar_plus: ^1.1.2
+jalali_table_calendar_plus: ^1.1.3
 ```
 
 ```dart
@@ -106,7 +106,7 @@ HolyDay(year: Jalai_Year , month: Jalai_Month, day: Jalai_Day)
 ### این خط را به فایل  pubspec.yaml اضافه کنید
 
 ```yaml
-jalali_table_calendar_plus: ^1.1.1
+jalali_table_calendar_plus: ^1.1.3
 ```
 
 ```dart

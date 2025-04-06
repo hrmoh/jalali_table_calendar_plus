@@ -18,3 +18,8 @@
 
 * fix initialization calendar
 * update shamsi_date and flutter_lints packages
+
+## 1.1.3
+
+* add option to hide calendar header completely
+* add option to hide arrows in calendar header

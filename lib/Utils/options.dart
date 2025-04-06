@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class JalaliTableCalendarOption {
   final TextStyle? daysOfWeekStyle;
+  final bool showHeader;
+  final bool showHeaderArrows;
   final TextStyle? headerStyle;
   final TextStyle? daysStyle;
   final Color? currentDayColor;
@@ -12,6 +14,8 @@ class JalaliTableCalendarOption {
 
   JalaliTableCalendarOption({
     this.daysOfWeekStyle,
+    this.showHeader = true,
+    this.showHeaderArrows = true,
     this.headerStyle,
     this.daysStyle,
     this.currentDayColor,
